@@ -32,8 +32,9 @@ header.append(date, title, temp);
 return header;
 }
 
-// not sure what I'm doing wrong here
+//grab the parent element from html and append the create header
 const headerContainer = document.querySelector('.header-container');
-console.log(headerContainer);
-headerContainer.append(header);
+headerContainer.append(Header());
+
+// console.log(headerContainer);
 
