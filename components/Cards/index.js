@@ -23,20 +23,37 @@
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then(response =>{
 //   console.log(`this is response `, response);  
+//   console.log(`this is data `, response.data)
+//   console.log(`this is articles `, response.data.articles); 
 //   console.log(`this is javascript `, response.data.articles.javascript); 
-//   console.log(`this is javascript `, response.data.javascript); 
 
-response.data.articles.javascript.forEach(info =>{
-//   console.log(`this is info `, info);
-    newCard.append(createCard(info));
-    // console.log(`this is new card `, newCard);
-})  
+// response.data.articles.javascript.forEach(info =>{
+//     console.log(`this is info `, info);    
+//     newCard.append(createCard(info));
+        
+// })  
+
+// console.log(Object.entries(response.data.articles));
 
 
+//turn the object values into the array
+// dig deeper
+Object.values(response.data.articles).forEach(function(a){
+    // console.log(`this is a`, a);    
+
+// dig deeper again to get what you want    
+a.forEach(function(b){
+    console.log(`this is b`, b);
+    newCard.append(createCard(b));
+})
+    
+})
 
 }).catch(error => {
     console.log("This is the error", error)
 })
+
+
 
 
 function createCard(object){

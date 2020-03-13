@@ -11,40 +11,47 @@
 axios.get ('https://lambda-times-backend.herokuapp.com/topics')
 
 .then(response => {
-    console.log(`this is response `, response);
-    console.log(`this is response data`, response.data);
-    console.log(`this is reponse data topics`, response.data.topics);
+    // console.log(`this is response `, response);
+    // console.log(`this is data`, response.data);
+    // console.log(`this is topics`, response.data.topics);
+
+ 
+
+   //map through topics
+   response.data.topics.forEach(info =>{
+    //append the created tabs to the parent container -- still empty        
+    tabsContainer.append(createTabs(info));
+    // console.log(info);
+})  
+})
+
     
 
-    //map through topics
-    response.data.topics.map(info =>{
-        //append the created tab to the parent container -- still empty        
-        tabsContainer.append(createTabs(info));  
-    }) 
 
-})
 .catch(error => {
-    console.log("This is the error", error)
+    console.log("This is the error", error);
 })
 
 
 
 // Create function here
 
-function createTabs (object) {
+function createTabs (array) {
     //create and define elements, add class and text content
     const tab = document.createElement('div');
     tab.classList.add('tab');
-    tab.textContent = object.topics;
-   
+    tab.textContent = array;
+    
     return tab;
 };
+
+
 
 //append created tab element to it's parent .topics
 
 
 const tabsContainer = document.querySelector('.topics');
-console.log(`this is where the tabs should go `, tabsContainer);
+// console.log(`this is where the tabs should go `, tabsContainer);
 
 
 
