@@ -8,105 +8,37 @@
 //  The tab component should look like this:
 //    <div class="tab">topic here</div>
 
-axios.get ('https://lambda-times-backend.herokuapp.com/topics')
+axios.get('https://lambda-times-backend.herokuapp.com/topics')
 
 .then(response => {
     // console.log(`this is response `, response);
-    // console.log(`this is data`, response.data);
-    // console.log(`this is topics`, response.data.topics);
+    // console.log(`this is data `, response.data);
+    // console.log(`this is topics `, response.data.topics);
 
- 
+    response.data.topics.forEach(item =>{
+        // console.log(`this is a `, item);
 
-   //map through topics
-   response.data.topics.forEach(info =>{
-    //append the created tabs to the parent container -- still empty        
-    tabsContainer.append(createTabs(info));
-    // console.log(info);
-})  
+        //this part is a little confusing so be careful
+        tabHolder.append(addComponent(item));        
+    })
 })
-
-    
-
 
 .catch(error => {
-    console.log("This is the error", error);
+    console.log(`Oops there was an error `, error);
 })
 
 
+function addComponent(arrayItem){
+//create element
+const tab = document.createElement('div');
+tab.classList.add('tab');
+tab.textContent = arrayItem;
 
-// Create function here
+// console.log(`this is tab `, tab);
 
-function createTabs (array) {
-    //create and define elements, add class and text content
-    const tab = document.createElement('div');
-    tab.classList.add('tab');
-    tab.textContent = array;
-    
+
     return tab;
-};
+}
 
-
-
-//append created tab element to it's parent .topics
-
-
-const tabsContainer = document.querySelector('.topics');
-// console.log(`this is where the tabs should go `, tabsContainer);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// axios.get('https://lambda-times-backend.herokuapp.com/topics')
-// .then(response =>{
-//     // console.log(`this is response`, response)
-//     console.log(`this is topics `, response.data.topics); // what needs to be pushed in 
-//         response.data.topics.forEach(item =>{
-//         console.log(`this is list item `, item);        
-//         newTab.append(newTabComponent(item));
-//         console.log(`this is newTab `, newTab);
-
-//     })
-     
-
-// })
-
-// .catch(error => {
-//     console.log("This is the error", error)
-// })
-
-// function newTabComponent (data){
-//     const tab = document.createElement('div');
-//     tab.classList.add('tab');
-//     tab.textContent = data.topics;   
-
-
-//     return tab;
-// }
-
-// const newTab = document.querySelector('.topics');
-
+const tabHolder = document.querySelector('.topics');
 

@@ -7,85 +7,75 @@
 // Create a function that will programmatically create the following DOM component:
 //
 // <div class="card">
+
 //   <div class="headline">{Headline of article}</div>
 
 //   <div class="author">
+
 //     <div class="img-container">
 //       <img src={url of authors image} />
 //     </div>
 
 //     <span>By {authors name}</span>
-//   </div>
-// </div>
+
+//   </div> // this closes author
+
+// </div> this closes card
 //
 // Create a card for each of the articles and add the card to the DOM.
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
-.then(response =>{
-//   console.log(`this is response `, response);  
-//   console.log(`this is data `, response.data)
-//   console.log(`this is articles `, response.data.articles); 
-//   console.log(`this is javascript `, response.data.articles.javascript); 
-
-// response.data.articles.javascript.forEach(info =>{
-//     console.log(`this is info `, info);    
-//     newCard.append(createCard(info));
-        
-// })  
-
-// console.log(Object.entries(response.data.articles));
-
-
-//turn the object values into the array
-// dig deeper
-Object.values(response.data.articles).forEach(function(a){
-    // console.log(`this is a`, a);    
-
-// dig deeper again to get what you want    
-a.forEach(function(b){
-    console.log(`this is b`, b);
-    newCard.append(createCard(b));
-})
+.then(res => {
+    // console.log(`this is response `, res);
+    // console.log(`this is data `, res.data);
+    // console.log(`this is articles `, res.data.articles);
     
+    console.log(`Object converted to an array to use the array method `, Object.values(res.data.articles));
+    Object.values(res.data.articles).forEach(a=>{
+        // console.log(`this is a `, a);
+
+    a.forEach(b =>{
+        // console.log(`this is b`, b);
+        cardParent.append(createArticleCard(b));
+    })        
+
+    })
 })
 
-}).catch(error => {
-    console.log("This is the error", error)
+.catch(error =>{
+    console.log(`Something went wrong: ERROR`, error);
 })
 
 
+function createArticleCard(object){
 
-
-function createCard(object){
-
-    //create and define elements
+    //create elements and define them here
     const card = document.createElement('div');
     const headline = document.createElement('div');
     const author = document.createElement('div');
     const imgContainer = document.createElement('div');
-    const image = document.createElement('img');
+    const img = document.createElement('img');
     const authorName = document.createElement('span');
+
+    // append elements here
+    card.append(headline, author);
+    author.append(imgContainer, authorName);
+    imgContainer.append(img);
 
     // add classes if any
     card.classList.add('card');
     headline.classList.add('headline');
     author.classList.add('author');
     imgContainer.classList.add('img-container');
-
-    //append here
-    card.append(headline, author, authorName);
-    author.append(imgContainer);
-    imgContainer.append(image);
-
-    //text content here
-    headline.textContent = object.headline;    
-    image.src = object.authorPhoto;
+    
+    // add text content
+    headline.textContent = object.headline;
+    img.src = object.authorPhoto;
     authorName.textContent = object.authorName;
-
+    
 
     return card;
 }
 
-let newCard = document.querySelector('.cards-container');
-
+const cardParent = document.querySelector('.cards-container');
 
