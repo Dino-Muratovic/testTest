@@ -86,4 +86,4 @@ Your stretch challenge is to write the functionality of a `Carousel` component. 
 
 * [ ] If you have finished the above, research `data attributes`. Implement data attributes within your tabs as well as your cards. Give the tabs functionality so that when they are clicked they filter the cards to only display the cards that contain that topic.
 
-Please close this PR
+
